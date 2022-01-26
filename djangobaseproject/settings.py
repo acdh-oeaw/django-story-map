@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'webpage',
     'browsing',
     'infos',
+    'story_map',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
