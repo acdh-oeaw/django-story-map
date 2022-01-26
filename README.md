@@ -1,3 +1,6 @@
+[![Test](https://github.com/acdh-oeaw/django-story-map/actions/workflows/test.yml/badge.svg)](https://github.com/acdh-oeaw/django-story-map/actions/workflows/test.yml)
+[![flake8 Lint](https://github.com/acdh-oeaw/django-story-map/actions/workflows/lint.yml/badge.svg)](https://github.com/acdh-oeaw/django-story-map/actions/workflows/lint.yml)
+[![codecov](https://codecov.io/gh/acdh-oeaw/django-story-map/branch/master/graph/badge.svg?token=EK3LO3URJK)](https://codecov.io/gh/acdh-oeaw/django-story-map)
 # Django Story Map
 
 A django app to create/edit/publish story maps using https://storymap.knightlab.com/
