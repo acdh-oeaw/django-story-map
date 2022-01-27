@@ -37,3 +37,4 @@ node_modules
 .vscode/settings.json
 build
 *.egg-info
+dist
