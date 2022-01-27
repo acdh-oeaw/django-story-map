@@ -1,3 +1,9 @@
-# from django.shortcuts import render
+from django.views.generic.detail import DetailView
 
-# Create your views here.
+
+from . models import Story
+
+
+class StoryDetailView(DetailView):
+    model = Story
+    template_name = 'story_map/story_detail.html'

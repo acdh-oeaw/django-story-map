@@ -20,6 +20,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('webpage.urls', namespace='webpage')),
-    path('infos/', include('infos.urls', namespace='infos'))
+    path('infos/', include('infos.urls', namespace='infos')),
+    path('stories/', include('story_map.urls', namespace='story_map'))
+
 ]
 handler404 = 'webpage.views.handler404'
