@@ -1,6 +1,15 @@
+import json
+
 from django.db import models
+from functools import cached_property
 
 # Create your models here.
+
+
+def xstr(s):
+    if s is None:
+        return ''
+    return str(s)
 
 
 class Story(models.Model):
@@ -59,6 +68,35 @@ class Story(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+    @cached_property
+    def payload(self):
+        item = {
+            'slides': [],
+            'zoomify': {
+                'path': xstr(self.zoomify_path),
+                'height': self.zoomify_height,
+                'width': self.zoomify_width,
+                'attribution': xstr(self.attribution)
+            },
+            'attribution': xstr(self.attribution),
+            'call_to_action': self.call_to_action,
+            'call_to_action_text': xstr(self.call_to_action_text),
+            'language': self.language,
+            'map_as_image': False,
+            'map_background_color': self.map_background_color,
+            'map_subdomains': xstr(self.map_subdomains),
+            'map_type': xstr(self.map_type)
+        }
+        for x in self.has_slides.all():
+            item['slides'].append(x.payload)
+        return {
+            "storymap": item
+        }
+
+    @cached_property
+    def payload_as_json(self):
+        return json.dumps(self.payload)
 
 
 class Slide(models.Model):
@@ -132,21 +170,51 @@ class Slide(models.Model):
     def __str__(self):
         return f"{self.story.title}__{self.order_nr} {self.text_headline}"
 
+    @property
     def location(self):
-        item = {
-            "iconSize": [
-                self.location_icon_size_w, self.location_icon_size_l
-            ],
-            "lat": self.location_lat,
-            "line": self.location_line,
-            "lon": self.location_lng,
-            "zoom": self.location_zoom
-        }
+        if self.location_lat:
+            item = {
+                "iconSize": [
+                    self.location_icon_size_w, self.location_icon_size_l
+                ],
+                "lat": self.location_lat,
+                "line": self.location_line,
+                "lon": self.location_lng,
+                "zoom": self.location_zoom
+            }
+        else:
+            item = {
+                "line": self.location_line,
+            }
         return item
 
+    @property
     def text(self):
         item = {
             "headline": self.text_headline,
             "text": self.text_text
         }
         return item
+
+    @property
+    def payload(self):
+        if self.date:
+            date = f"{self.date}"
+        else:
+            date = ""
+        item = {
+            "background": {},
+            "date": f"{date}",
+            "location": self.location,
+            "media": {
+                "caption": self.media_caption,
+                "credit": self.media_credit,
+                "url": self.media_url
+            },
+            "text": self.text
+        }
+        if self.location_lng:
+            return item
+        else:
+            item['type'] = "overview"
+            return item

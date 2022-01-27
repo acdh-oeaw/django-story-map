@@ -12,9 +12,13 @@
 <link rel="stylesheet" href="https://cdn.knightlab.com/libs/storymapjs/latest/css/storymap.css">
 <script type="text/javascript" src="https://cdn.knightlab.com/libs/storymapjs/latest/js/storymap-min.js"></script>
 
+<script id="story-map-data" type="application/json">{{ object.payload_as_json|safe }}</script>
 <script>
+
 // storymap_data can be an URL or a Javascript object
-var storymap_data = 'https://uploads.knightlab.com/storymapjs/ee3762a02e5862af8f02906ab1d35ec6/mapping-medieval-people-alternative-map/draft.json';
+// var storymap_data = 'https://uploads.knightlab.com/storymapjs/ee3762a02e5862af8f02906ab1d35ec6/mapping-medieval-people-alternative-map/draft.json';
+
+var storymap_data = JSON.parse(document.getElementById('story-map-data').textContent);
 
 // certain settings must be passed within a separate options object
 var storymap_options = {};
