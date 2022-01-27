@@ -20,30 +20,51 @@ class Slide(models.Model):
     order_nr = models.PositiveSmallIntegerField(
         help_text="Use this number for ordering your slides"
     )
-    lat = models.FloatField(
+    location_lat = models.FloatField(
         blank=True,
         null=True
     )
-    lng = models.FloatField(
+    location_lng = models.FloatField(
         blank=True,
         null=True
     )
-    zoom = models.PositiveSmallIntegerField(
+    location_zoom = models.PositiveSmallIntegerField(
         default=4
     )
-    line = models.BooleanField(
+    location_icon_size_l = models.PositiveSmallIntegerField(
+        default=48
+    )
+    location_icon_size_w = models.PositiveSmallIntegerField(
+        default=48
+    )
+    location_line = models.BooleanField(
         default=True
     )
-    headline = models.CharField(
+    text_headline = models.CharField(
         max_length=250
     )
-    text = models.TextField(
+    text_text = models.TextField(
         blank=True,
         null=True,
     )
     date = models.DateField(
         blank=True,
         null=True
+    )
+    media_caption = models.CharField(
+        blank=True,
+        null=True,
+        max_length=250
+    )
+    media_credit = models.CharField(
+        blank=True,
+        null=True,
+        max_length=250
+    )
+    media_url = models.URLField(
+        blank=True,
+        null=True,
+        max_length=250
     )
 
     class Meta:
@@ -54,3 +75,22 @@ class Slide(models.Model):
 
     def __str__(self):
         return f"{self.headline} ({self.order_nr}"
+
+    def location(self):
+        item = {
+            "iconSize": [
+                self.location_icon_size_w, self.location_icon_size_l
+            ],
+            "lat": self.location_lat,
+            "line": self.location_line,
+            "lon": self.location_lng,
+            "zoom": self.location_zoom
+        }
+        return item
+
+    def text(self):
+        item = {
+            "headline": self.text_headline,
+            "text": self.text_text
+        }
+        return item

@@ -7,7 +7,7 @@ class RecogitoAdmin(admin.ModelAdmin):
     list_display = (
         "order_nr",
         "story",
-        "headline",
+        "text_headline",
     )
     list_filter = (
         "story",
