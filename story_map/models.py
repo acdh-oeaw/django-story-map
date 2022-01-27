@@ -7,6 +7,55 @@ class Story(models.Model):
     title = models.CharField(
         max_length=250
     )
+    attribution = models.CharField(
+        blank=True,
+        null=True,
+        max_length=250
+    )
+    call_to_action = models.BooleanField(
+        default=True
+    )
+    call_to_action_text = models.CharField(
+        blank=True,
+        null=True,
+        max_length=250
+    )
+    language = models.CharField(
+        default="en",
+        max_length=2
+    )
+    map_background_color = models.CharField(
+        default="#5f9468",
+        max_length=15
+    )
+    map_subdomains = models.CharField(
+        blank=True,
+        null=True,
+        max_length=25
+    )
+    map_type = models.CharField(
+        blank=True,
+        null=True,
+        max_length=25
+    )
+    zoomify_path = models.CharField(
+        blank=True,
+        null=True,
+        max_length=250
+    )
+    zoomify_height = models.PositiveSmallIntegerField(
+        blank=True,
+        null=True
+    )
+    zoomify_width = models.PositiveSmallIntegerField(
+        blank=True,
+        null=True
+    )
+    zoomify_attribution = models.CharField(
+        blank=True,
+        null=True,
+        max_length=250
+    )
 
     def __str__(self):
         return f"{self.title}"
