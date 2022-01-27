@@ -4,18 +4,34 @@ from story_map.models import Slide, Story
 
 def fetch_data_from_knightlab(url):
     r = requests.get(url)
-    return r.json()
+    data = r.json()
+    return data['storymap']
 
 
-def slides_from_knightlab_data(data):
-    return data['storymap']['slides']
+def enrich_story(story, story_data):
+    for x in [
+        'attribution',
+        'call_to_action',
+        'language',
+        'map_background_color',
+        'map_subdomains',
+        'map_type',
+    ]:
+        setattr(story, x, story_data[x])
+    for x in [
+        'path', 'height', 'width', 'attribution'
+    ]:
+        setattr(story, f"zoomify_{x}", story_data['zoomify'][x])
+        story.save()
+    return story
 
 
-def save_slides(slides, story_title='default story'):
+def save_slides(data, story_title='default story'):
     story, _ = Story.objects.get_or_create(title=story_title)
     story.has_slides.all().delete()
+    enrich_story(story, data)
     items = []
-    for i, x in enumerate(slides):
+    for i, x in enumerate(data['slides']):
         order_nr = i + 1
         item = Slide.objects.create(
             story=story,
@@ -41,6 +57,5 @@ def save_slides(slides, story_title='default story'):
 
 def import_from_knlab(url, story_title):
     data = fetch_data_from_knightlab(url)
-    slides = slides_from_knightlab_data(data)
-    items = save_slides(slides, story_title)
+    items = save_slides(data, story_title)
     return items
