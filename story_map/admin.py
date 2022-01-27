@@ -8,6 +8,10 @@ class RecogitoAdmin(admin.ModelAdmin):
         "order_nr",
         "story",
         "text_headline",
+        "text_text",
+        "location_lat",
+        "location_lng",
+        "media_url"
     )
     list_filter = (
         "story",

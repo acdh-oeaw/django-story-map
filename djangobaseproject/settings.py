@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SHARED_URL = "https://shared.acdh.oeaw.ac.at/"
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_filters',
     'django_tables2',
+    'django_extensions',
     'webpage',
     'browsing',
     'infos',

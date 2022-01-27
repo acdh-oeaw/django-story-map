@@ -16,6 +16,7 @@ class Slide(models.Model):
     story = models.ForeignKey(
         'Story',
         on_delete=models.CASCADE,
+        related_name="has_slides"
     )
     order_nr = models.PositiveSmallIntegerField(
         help_text="Use this number for ordering your slides"
@@ -73,8 +74,14 @@ class Slide(models.Model):
             'order_nr',
         ]
 
+    def save(self, *args, **kwargs):
+        if self.media_url:
+            if self.media_url.startswith('//'):
+                self.media_url = self.media_url.replace('//', 'https://')
+        super(Slide, self).save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.headline} ({self.order_nr}"
+        return f"{self.story.title}__{self.order_nr} {self.text_headline}"
 
     def location(self):
         item = {
