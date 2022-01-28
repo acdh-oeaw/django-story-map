@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name='django-story-map',
-    version='0.4.0',
+    version='0.5.0',
     description="""A django app to create/edit/publish story maps using https://storymap.knightlab.com/""",
     long_description=long_description,
     long_description_content_type='text/markdown',
