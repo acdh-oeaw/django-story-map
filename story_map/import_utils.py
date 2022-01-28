@@ -17,12 +17,16 @@ def enrich_story(story, story_data):
         'map_subdomains',
         'map_type',
     ]:
-        setattr(story, x, story_data[x])
-    for x in [
-        'path', 'height', 'width', 'attribution'
-    ]:
-        setattr(story, f"zoomify_{x}", story_data['zoomify'][x])
-        story.save()
+        try:
+            setattr(story, x, story_data[x])
+        except KeyError:
+            pass
+    if story_data['zoomify']:
+        for x in [
+            'path', 'height', 'width', 'attribution'
+        ]:
+            setattr(story, f"zoomify_{x}", story_data['zoomify'][x])
+    story.save()
     return story
 
 

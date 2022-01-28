@@ -18,7 +18,10 @@ A django app to create/edit/publish story maps using https://storymap.knightlab.
 
 * create story maps via django-admin interface
 * donwload/copy story-maps created via knightlab's interface
+  * `python manage.py story_map_from_url --url https://uploads.knightlab.com/storymapjs/dc9e2f8d24c3bafe928fc52fb4d03df3/whatever/published.json --story "My awesome story map"`
 * show storymaps
+  * `{whatever}/stories/{story-pk}/`
 * provide storymaps data via JSON-API-Endpoint
+  * `{whatever}/stories/data/{story-pk}/`
 
 This project was bootstraped by [djangobase-cookiecutter](https://github.com/acdh-oeaw/djangobase-cookiecutter)
