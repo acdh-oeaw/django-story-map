@@ -20,7 +20,7 @@ setuptools.setup(
     ],
     include_package_data=True,
     install_requires=[
-        'Django>=3.2,<4',
+        'Django>=3.2,<5',
     ],
     license="MIT",
     zip_safe=False,
